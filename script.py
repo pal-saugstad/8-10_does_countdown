@@ -62,5 +62,5 @@ while current_result != wanted_result:
 for i in range(0,len(log_results)):
     print(log_results[i])
 
-print(current_result)
+print("Result: " + str(current_result))
 logfile.close()
