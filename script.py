@@ -2,7 +2,7 @@ import random
 import sys
 
 LOGGING='off'
-
+NUMBER_OF_ITERATIONS=200000
 
 class Logging:
     def __init__(self, active):
@@ -113,7 +113,7 @@ def do_math(wanted_result, numbersinput):
 current_result = 0
 best_diff = -1
 searching = 0
-while best_diff != 0 and searching < 100000:
+while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
     current_result = do_math(wanted_result, numbers)
     diff = wanted_result - current_result
     if diff < 0:
@@ -126,6 +126,6 @@ while best_diff != 0 and searching < 100000:
         searching += 1
 
 if searching > 0:
-    print ("Gave up to find any closer solution after", searching, 'iterations')
+    print ("Gave up finding any closer solution after", searching, 'iterations')
 
 logging.close()
