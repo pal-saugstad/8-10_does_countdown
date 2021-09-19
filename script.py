@@ -4,9 +4,16 @@ import sys
 logfile = open('./logfile.txt', 'a+')
 
 numbers = []
-for i in range(0, 6):
-    numbers.append(input("Enter number: "))
-wanted_result = input("Enter the result: ")
+if len(sys.argv) == 8:
+    for i in range(1, 7):
+        numbers.append(int(sys.argv[i]))
+    wanted_result = int(sys.argv[7])
+else:
+    for i in range(0, 6):
+        numbers.append(int(input("Enter number: ")))
+    wanted_result = int(input("Enter the result: "))
+
+print('Working with', numbers, 'and', wanted_result)
 
 logfile.write(str(numbers) + '\n')
 logfile.write(str(wanted_result) + '\n')
