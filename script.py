@@ -1,7 +1,7 @@
 import random
 import sys
 
-LOGGING='on'
+LOGGING='off'
 
 
 class Logging:
