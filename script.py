@@ -65,11 +65,28 @@ def do_math(wanted_result, numbersinput):
     test_numbers = list(numbersinput)
     random.shuffle(test_numbers)
     del log_results[:]
+    found_res = []
     carry = test_numbers.pop()
+    best_diff = wanted_result - carry
+    if best_diff < 0:
+        best_diff = -best_diff
     while len(test_numbers) > 0 and carry != wanted_result:
         results = options[random.randint(0,3)](carry, test_numbers.pop())
         carry = results[0]
+        diff = carry - wanted_result
+        if diff < 0:
+            diff = -diff
         log_results.append(results[1])
+        found_res.append([carry, diff])
+        if diff < best_diff:
+            best_diff = diff
+
+    logging.out("Part equations: " + str(log_results) + "\n")
+    logging.out("Part res: " + str(found_res) + "\n")
+    carry, this_part_diff = found_res.pop()
+    while this_part_diff != best_diff and len(found_res) > 0:
+        log_results.pop()
+        carry, this_part_diff = found_res.pop()
 
     for i in range(0,len(log_results)):
         logging.out(log_results[i])
