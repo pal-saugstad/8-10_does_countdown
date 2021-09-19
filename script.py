@@ -1,7 +1,24 @@
 import random
 import sys
 
-logfile = open('./logfile.txt', 'a+')
+LOGGING='on'
+
+
+class Logging:
+    def __init__(self, active):
+        self.active = active
+        self.file = ''
+        if active:
+            self.file = open('./logfile.txt', 'a+')
+    def out(self, text):
+        if self.active:
+            self.file.write(text)
+    def close(self):
+        if self.active:
+            self.file.close()
+
+
+logging = Logging(LOGGING == 'on')
 
 numbers = []
 if len(sys.argv) == 8:
@@ -15,9 +32,9 @@ else:
 
 print('Working with', numbers, 'and', wanted_result)
 
-logfile.write(str(numbers) + '\n')
-logfile.write(str(wanted_result) + '\n')
-logfile.write('\n')
+logging.out(str(numbers) + '\n')
+logging.out(str(wanted_result) + '\n')
+logging.out('\n')
 
 # define the function blocks
 def addition(x,y):
@@ -56,10 +73,10 @@ def do_math(numbersinput):
         log_results.append(results[1])
 
     for i in range(0,len(log_results)):
-        logfile.write(log_results[i])
+        logging.out(log_results[i])
 
-    logfile.write("\n" + "Result: " + str(test_numbers[0]) + "\n")
-    logfile.write('----------------------\n')
+    logging.out("\n" + "Result: " + str(test_numbers[0]) + "\n")
+    logging.out('----------------------\n')
     return test_numbers[0]
 
 current_result = 0
@@ -82,4 +99,4 @@ while best_diff != 0 and searching < 100000:
 if searching > 0:
     print ("Gave up to find any closer solution after", searching, 'iterations')
 
-logfile.close()
+logging.close()
