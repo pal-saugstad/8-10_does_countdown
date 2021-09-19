@@ -63,11 +63,16 @@ def do_math(numbersinput):
     return test_numbers[0]
 
 current_result = 0
-while current_result != wanted_result:
+best_diff = -1
+while best_diff != 0:
     current_result = do_math(numbers)
+    diff = wanted_result - current_result
+    if diff < 0:
+        diff = -diff
+    if best_diff < 0 or diff < best_diff:
+        best_diff = diff
+        for i in range(0,len(log_results)):
+            print(log_results[i], end='')
+        print("Result: " + str(current_result))
 
-for i in range(0,len(log_results)):
-    print(log_results[i], end='')
-
-print("Result: " + str(current_result))
 logfile.close()
