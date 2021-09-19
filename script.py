@@ -61,12 +61,12 @@ options = {0: addition,
 
 log_results = []
 
-def do_math(numbersinput):
+def do_math(wanted_result, numbersinput):
     test_numbers = list(numbersinput)
     random.shuffle(test_numbers)
     del log_results[:]
     carry = test_numbers.pop()
-    while len(test_numbers) > 0:
+    while len(test_numbers) > 0 and carry != wanted_result:
         results = options[random.randint(0,3)](carry, test_numbers.pop())
         carry = results[0]
         log_results.append(results[1])
@@ -82,7 +82,7 @@ current_result = 0
 best_diff = -1
 searching = 0
 while best_diff != 0 and searching < 100000:
-    current_result = do_math(numbers)
+    current_result = do_math(wanted_result, numbers)
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
