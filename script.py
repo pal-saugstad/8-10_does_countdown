@@ -30,27 +30,40 @@ else:
         numbers.append(int(input("Enter number: ")))
     wanted_result = int(input("Enter the result: "))
 
-print('Working with', numbers, 'and', wanted_result)
+print("Notation:")
+print("   n : input value")
+print("   n_: intermediate result output and end result")
+print("  _n : intermediate result input")
+
+target_text = str([wanted_result])
+input_text = str(numbers)
+fill_len = (len(input_text) - len(target_text)) // 2
+print('')
+print('-----------------------------------------------------------------------'[0:len(input_text)])
+print('                            '[0:fill_len] + target_text)
+print(input_text)
+print('-----------------------------------------------------------------------'[0:len(input_text)])
+print('')
 
 logging.out(str(numbers) + '\n')
 logging.out(str(wanted_result) + '\n')
 logging.out('\n')
 
 # define the function blocks
-def addition(x,y):
-    return x + y , str(x) + " + " + str(y) + " = " + str(x+y) + ' | '
+def addition(origin, x, y):
+    return x + y , origin + str(x) + " + " + str(y) + " = " + str(x+y) + '_'
 
-def substraction(x,y):
-    return x-y , str(x) + " - " + str(y) + " = " + str(x-y) + ' | '
+def substraction(origin, x, y):
+    return x-y , origin + str(x) + " - " + str(y) + " = " + str(x-y) + '_'
 
-def multiplication(x,y):
-    return x * y, str(x) + " * " + str(y) + " = " + str(x*y) + ' | '
+def multiplication(origin, x, y):
+    return x * y, origin + str(x) + " * " + str(y) + " = " + str(x*y) + '_'
 
-def division(x,y):
+def division(origin, x, y):
     if (x % y) == 0:
-        return x//y, str(x) + " / " + str(y) + " = " + str(x//y) + ' | '
+        return x//y, origin + str(x) + " / " + str(y) + " = " + str(x//y) + '_'
     else:
-        return options[random.randint(0,2)](x, y)
+        return options[random.randint(0,2)](origin, x, y)
 
 # map the inputs to the function blocks
 options = {0: addition,
@@ -67,11 +80,13 @@ def do_math(wanted_result, numbersinput):
     del log_results[:]
     found_res = []
     carry = test_numbers.pop()
+    carry_is_part_result = ''
     best_diff = wanted_result - carry
     if best_diff < 0:
         best_diff = -best_diff
     while len(test_numbers) > 0 and carry != wanted_result:
-        results = options[random.randint(0,3)](carry, test_numbers.pop())
+        results = options[random.randint(0,3)](carry_is_part_result, carry, test_numbers.pop())
+        carry_is_part_result = '_'
         carry = results[0]
         diff = carry - wanted_result
         if diff < 0:
@@ -105,9 +120,7 @@ while best_diff != 0 and searching < 100000:
         diff = -diff
     if best_diff < 0 or diff < best_diff:
         best_diff = diff
-        for i in range(0,len(log_results)):
-            print(log_results[i], end='')
-        print("Result: " + str(current_result) + " Diff: ", diff)
+        print(' | '.join(log_results)  + " | Diff: " + str(diff))
         searching = 0
     else:
         searching += 1
