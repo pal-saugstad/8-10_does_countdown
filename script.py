@@ -113,6 +113,7 @@ def do_math(wanted_result, numbersinput):
 current_result = 0
 best_diff = -1
 searching = 0
+dots = False
 while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
     current_result = do_math(wanted_result, numbers)
     diff = wanted_result - current_result
@@ -120,12 +121,16 @@ while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
         diff = -diff
     if best_diff < 0 or diff < best_diff:
         best_diff = diff
-        print(' | '.join(log_results)  + " | Diff: " + str(diff))
+        print(("\n" if dots else '') + ' | '.join(log_results)  + " | Diff: " + str(diff))
         searching = 0
+        dots = False
     else:
         searching += 1
+        if searching % 10000 == 0:
+            print('.', end='', flush=True)
+            dots = True
 
 if searching > 0:
-    print ("Gave up finding any closer solution after", searching, 'iterations')
+    print ("\nGave up finding any closer solution after", searching, 'iterations')
 
 logging.close()
