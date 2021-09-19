@@ -62,22 +62,21 @@ options = {0: addition,
 log_results = []
 
 def do_math(numbersinput):
-    test_numbers = []
-    test_numbers = test_numbers + numbersinput
+    test_numbers = list(numbersinput)
     random.shuffle(test_numbers)
     del log_results[:]
-
-    while len(test_numbers) > 1:
-        results = options[random.randint(0,3)](test_numbers.pop(), test_numbers.pop())
-        test_numbers.append(results[0])
+    carry = test_numbers.pop()
+    while len(test_numbers) > 0:
+        results = options[random.randint(0,3)](carry, test_numbers.pop())
+        carry = results[0]
         log_results.append(results[1])
 
     for i in range(0,len(log_results)):
         logging.out(log_results[i])
 
-    logging.out("\n" + "Result: " + str(test_numbers[0]) + "\n")
+    logging.out("\n" + "Result: " + str(carry) + "\n")
     logging.out('----------------------\n')
-    return test_numbers[0]
+    return carry
 
 current_result = 0
 best_diff = -1
