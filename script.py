@@ -21,17 +21,17 @@ logfile.write('\n')
 
 # define the function blocks
 def addition(x,y):
-    return x + y , str(x) + " + " + str(y) + " = " + str(x+y) + '\n'
+    return x + y , str(x) + " + " + str(y) + " = " + str(x+y) + ' | '
 
 def substraction(x,y):
-    return x-y , str(x) + " - " + str(y) + " = " + str(x-y) + '\n'
+    return x-y , str(x) + " - " + str(y) + " = " + str(x-y) + ' | '
 
 def multiplication(x,y):
-    return x * y, str(x) + " * " + str(y) + " = " + str(x*y) + '\n'
+    return x * y, str(x) + " * " + str(y) + " = " + str(x*y) + ' | '
 
 def division(x,y):
     if (x % y) == 0:
-        return x//y, str(x) + " / " + str(y) + " = " + str(x//y) + '\n'
+        return x//y, str(x) + " / " + str(y) + " = " + str(x//y) + ' | '
     else:
         return options[random.randint(0,2)](x, y)
 
@@ -67,7 +67,7 @@ while current_result != wanted_result:
     current_result = do_math(numbers)
 
 for i in range(0,len(log_results)):
-    print(log_results[i])
+    print(log_results[i], end='')
 
 print("Result: " + str(current_result))
 logfile.close()
