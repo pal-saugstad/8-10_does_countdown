@@ -31,7 +31,7 @@ def multiplication(x,y):
 
 def division(x,y):
     if (x % y) == 0:
-        return x/y, str(x) + " / " + str(y) + " = " + str(x / y) + '\n'
+        return x//y, str(x) + " / " + str(y) + " = " + str(x//y) + '\n'
     else:
         return options[random.randint(0,2)](x, y)
 
