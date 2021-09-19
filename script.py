@@ -64,7 +64,8 @@ def do_math(numbersinput):
 
 current_result = 0
 best_diff = -1
-while best_diff != 0:
+searching = 0
+while best_diff != 0 and searching < 100000:
     current_result = do_math(numbers)
     diff = wanted_result - current_result
     if diff < 0:
@@ -73,6 +74,12 @@ while best_diff != 0:
         best_diff = diff
         for i in range(0,len(log_results)):
             print(log_results[i], end='')
-        print("Result: " + str(current_result))
+        print("Result: " + str(current_result) + " Diff: ", diff)
+        searching = 0
+    else:
+        searching += 1
+
+if searching > 0:
+    print ("Gave up to find any closer solution after", searching, 'iterations')
 
 logfile.close()
