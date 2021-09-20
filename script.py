@@ -57,15 +57,17 @@ def substraction(origin, x, y):
     return x-y , origin + str(x) + " - " + str(y) + " = " + str(x-y) + '_'
 
 def multiplication(origin, x, y):
+    if x == 0 or y == 0 or x == 1 or y == 1:
+        return options[random.randint(0,1)](origin, x, y)
     return x * y, origin + str(x) + " * " + str(y) + " = " + str(x*y) + '_'
 
 def division(origin, x, y):
-    if y != 0:
-        if (x % y) == 0:
-            return x//y, origin + str(x) + " / " + str(y) + " = " + str(x//y) + '_'
-    if x != 0:
-        if (y % x) == 0:
-            return y//x, str(y) + " / " + origin + str(x) + " = " + str(y//x) + '_'
+    if x == 0 or y == 0 or x == 1 or y == 1:
+        return options[random.randint(0,1)](origin, x, y)
+    if (x % y) == 0:
+        return x//y, origin + str(x) + " / " + str(y) + " = " + str(x//y) + '_'
+    if (y % x) == 0:
+        return y//x, str(y) + " / " + origin + str(x) + " = " + str(y//x) + '_'
 
     return options[random.randint(0,2)](origin, x, y)
 
