@@ -78,9 +78,7 @@ options = {0: addition,
 
 log_results = []
 
-def do_math(numbersinput):
-    test_numbers = list(numbersinput)
-    random.shuffle(test_numbers)
+def do_math(test_numbers):
     del log_results[:]
     carry = test_numbers.pop()
     carry_is_part_result = ''
@@ -97,7 +95,9 @@ current_result = 0
 best_diff = -1
 searching = 0
 while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
-    current_result = do_math(numbers)
+    test_numbers = list(numbers)
+    random.shuffle(test_numbers)
+    current_result = do_math(test_numbers)
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
