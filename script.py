@@ -97,6 +97,9 @@ searching = 0
 while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
     test_numbers = list(numbers)
     random.shuffle(test_numbers)
+    keep_indexes = random.randint(1,10)
+    while len(test_numbers) > keep_indexes:
+        test_numbers.pop()
     current_result = do_math(test_numbers)
     diff = wanted_result - current_result
     if diff < 0:
