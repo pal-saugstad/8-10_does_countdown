@@ -86,11 +86,7 @@ def do_math(numbersinput):
         carry = results[0]
         log_results.append(results[1])
 
-    for i in range(0,len(log_results)):
-        logging.out(log_results[i])
-
-    logging.out("\n" + "Result: " + str(carry) + "\n")
-    logging.out('----------------------\n')
+    logging.out(' | '.join(log_results) + "  Result: " + str(carry) + "\n")
     return carry
 
 current_result = 0
