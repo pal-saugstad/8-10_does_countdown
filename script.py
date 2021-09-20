@@ -82,6 +82,9 @@ def do_math(test_numbers):
     del log_results[:]
     carry = test_numbers.pop()
     carry_is_part_result = ''
+    if len(test_numbers) == 0:
+        # just one number given as input
+        log_results.append(str(carry) + ' = ' + str(carry) + '_')
     while len(test_numbers) > 0:
         results = options[random.randint(0,3)](carry_is_part_result, carry, test_numbers.pop())
         carry_is_part_result = '_'
