@@ -57,15 +57,17 @@ def substraction(origin, x, y):
     return x-y , origin + str(x) + " - " + str(y) + " = " + str(x-y) + '_'
 
 def multiplication(origin, x, y):
+    if x == 0 or y == 0 or x == 1 or y == 1:
+        return options[random.randint(0,1)](origin, x, y)
     return x * y, origin + str(x) + " * " + str(y) + " = " + str(x*y) + '_'
 
 def division(origin, x, y):
-    if y != 0:
-        if (x % y) == 0:
-            return x//y, origin + str(x) + " / " + str(y) + " = " + str(x//y) + '_'
-    if x != 0:
-        if (y % x) == 0:
-            return y//x, str(y) + " / " + origin + str(x) + " = " + str(y//x) + '_'
+    if x == 0 or y == 0 or x == 1 or y == 1:
+        return options[random.randint(0,1)](origin, x, y)
+    if (x % y) == 0:
+        return x//y, origin + str(x) + " / " + str(y) + " = " + str(x//y) + '_'
+    if (y % x) == 0:
+        return y//x, str(y) + " / " + origin + str(x) + " = " + str(y//x) + '_'
 
     return options[random.randint(0,2)](origin, x, y)
 
@@ -78,12 +80,13 @@ options = {0: addition,
 
 log_results = []
 
-def do_math(numbersinput):
-    test_numbers = list(numbersinput)
-    random.shuffle(test_numbers)
+def do_math(test_numbers):
     del log_results[:]
     carry = test_numbers.pop()
     carry_is_part_result = ''
+    if len(test_numbers) == 0:
+        # just one number given as input
+        log_results.append(str(carry) + ' = ' + str(carry) + '_')
     while len(test_numbers) > 0:
         results = options[random.randint(0,3)](carry_is_part_result, carry, test_numbers.pop())
         carry_is_part_result = '_'
@@ -97,7 +100,12 @@ current_result = 0
 best_diff = -1
 searching = 0
 while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
-    current_result = do_math(numbers)
+    test_numbers = list(numbers)
+    random.shuffle(test_numbers)
+    keep_indexes = random.randint(1,10)
+    while len(test_numbers) > keep_indexes:
+        test_numbers.pop()
+    current_result = do_math(test_numbers)
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
