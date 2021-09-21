@@ -54,6 +54,8 @@ def addition(origin, x, y):
     return x + y , origin + str(x) + " + " + str(y) + " = " + str(x+y) + '_'
 
 def substraction(origin, x, y):
+    if random.randint(0,1) == 0:
+        return y-x , str(y) + " - " + origin + str(x) + " = " + str(y-x) + '_'
     return x-y , origin + str(x) + " - " + str(y) + " = " + str(x-y) + '_'
 
 def multiplication(origin, x, y):
