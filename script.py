@@ -123,9 +123,11 @@ while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
         log_results.append('P: '+str(curr_list))
         parantesis_result.append(do_math(curr_list))
         start_index += numbers_tot
-
-    log_results.append("Calc Ps: " + str(parantesis_result))
-    current_result = do_math(parantesis_result)
+    if len(parantesis_result) > 1:
+        log_results.append("Calc Ps: " + str(parantesis_result))
+        current_result = do_math(parantesis_result)
+    else:
+        current_result = parantesis_result[0]
 
     diff = wanted_result - current_result
     if diff < 0:
