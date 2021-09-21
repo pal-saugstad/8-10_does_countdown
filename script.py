@@ -107,6 +107,7 @@ best_diff = -1
 searching = 0
 best_match = ''
 still_searching = 20
+match_length = 1000
 while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
     del log_results[:]
     input_numbers = list(numbers)
@@ -138,7 +139,10 @@ while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
         best_match = ' | '.join(log_results)
         searching = 0
         if diff == 0:
-            print(best_match)
+            this_len = len(best_match)
+            if this_len <= match_length:
+                print(best_match)
+                match_length = this_len
             best_match = ''
             still_searching -= 1
     else:
