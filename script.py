@@ -30,11 +30,6 @@ else:
         numbers.append(int(input("Enter number: ")))
     wanted_result = int(input("Enter the result: "))
 
-print("Notation:")
-print("   n : input value")
-print("   n_: intermediate result output and end result")
-print("  _n : intermediate result input")
-
 target_text = str([wanted_result])
 input_text = str(numbers)
 fill_len = (len(input_text) - len(target_text)) // 2
@@ -43,7 +38,17 @@ print('-----------------------------------------------------------------------'[
 print('                            '[0:fill_len] + target_text)
 print(input_text)
 print('-----------------------------------------------------------------------'[0:len(input_text)])
-print('')
+print("\
+\nNotation:\
+\n   n : input value\
+\n   n_: intermediate result output and end result\
+\n  _n : intermediate result input\
+\n\
+\n   P: [4, 1, 2] | 4 + 1 = 5_ | _5 + 2 = 7_\
+\n       meaning: Part using the three input numbers [4, 1, 3] and then this calculation\
+\n   Calc Ps: [52, 11] | 52 * 11 = 572_\
+\n       meaning: The previously calcated parts are then calculated to the end result\
+\n")
 
 logging.out(str(numbers) + '\n')
 logging.out(str(wanted_result) + '\n')
