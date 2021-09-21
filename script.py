@@ -104,8 +104,20 @@ while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
     del log_results[:]
     input_numbers = list(numbers)
     random.shuffle(input_numbers)
+    start_index = 0
     test_numbers = input_numbers[0:random.randint(1,20)]
-    current_result = do_math(test_numbers)
+    no_of_index = len(test_numbers)
+    # log_results.append("Using "+str(test_numbers))
+    parantesis_result = []
+    while start_index < no_of_index:
+        numbers_tot = random.randint(1,no_of_index-start_index)
+        curr_list = test_numbers[start_index:start_index+numbers_tot]
+        log_results.append('P: '+str(curr_list))
+        parantesis_result.append(do_math(curr_list))
+        start_index += numbers_tot
+
+    log_results.append("Calc Ps: " + str(parantesis_result))
+    current_result = do_math(parantesis_result)
 
     diff = wanted_result - current_result
     if diff < 0:
