@@ -54,6 +54,8 @@ def addition(origin, x, y):
     return x + y , origin + str(x) + " + " + str(y) + " = " + str(x+y) + '_'
 
 def substraction(origin, x, y):
+    if random.randint(0,1) == 0:
+        return y-x , str(y) + " - " + origin + str(x) + " = " + str(y-x) + '_'
     return x-y , origin + str(x) + " - " + str(y) + " = " + str(x-y) + '_'
 
 def multiplication(origin, x, y):
@@ -81,14 +83,13 @@ options = {0: addition,
 log_results = []
 
 def do_math(test_numbers):
-    del log_results[:]
-    carry = test_numbers.pop()
+    carry = test_numbers.pop(0)
     carry_is_part_result = ''
     if len(test_numbers) == 0:
         # just one number given as input
         log_results.append(str(carry) + ' = ' + str(carry) + '_')
     while len(test_numbers) > 0:
-        results = options[random.randint(0,3)](carry_is_part_result, carry, test_numbers.pop())
+        results = options[random.randint(0,3)](carry_is_part_result, carry, test_numbers.pop(0))
         carry_is_part_result = '_'
         carry = results[0]
         log_results.append(results[1])
@@ -100,12 +101,24 @@ current_result = 0
 best_diff = -1
 searching = 0
 while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
-    test_numbers = list(numbers)
-    random.shuffle(test_numbers)
-    keep_indexes = random.randint(1,10)
-    while len(test_numbers) > keep_indexes:
-        test_numbers.pop()
-    current_result = do_math(test_numbers)
+    del log_results[:]
+    input_numbers = list(numbers)
+    random.shuffle(input_numbers)
+    start_index = 0
+    test_numbers = input_numbers[0:random.randint(1,20)]
+    no_of_index = len(test_numbers)
+    # log_results.append("Using "+str(test_numbers))
+    parantesis_result = []
+    while start_index < no_of_index:
+        numbers_tot = random.randint(1,no_of_index-start_index)
+        curr_list = test_numbers[start_index:start_index+numbers_tot]
+        log_results.append('P: '+str(curr_list))
+        parantesis_result.append(do_math(curr_list))
+        start_index += numbers_tot
+
+    log_results.append("Calc Ps: " + str(parantesis_result))
+    current_result = do_math(parantesis_result)
+
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
