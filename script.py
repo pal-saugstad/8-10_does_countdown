@@ -105,7 +105,9 @@ def do_math(test_numbers):
 current_result = 0
 best_diff = -1
 searching = 0
-while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
+best_match = ''
+still_searching = 20
+while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
     del log_results[:]
     input_numbers = list(numbers)
     random.shuffle(input_numbers)
@@ -127,14 +129,23 @@ while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
-    if best_diff < 0 or diff < best_diff:
+    if best_diff < 0 or diff < best_diff or diff == 0:
+        if best_diff > 0 and diff == 0:
+            print("\nList of good results:\n")
         best_diff = diff
-        print(' | '.join(log_results)  + " | Diff: " + str(diff))
+        if diff > 0:
+            log_results.append("Diff: " + str(diff))
+        best_match = ' | '.join(log_results)
         searching = 0
+        if diff == 0:
+            print(best_match)
+            best_match = ''
+            still_searching -= 1
     else:
         searching += 1
 
 if searching > 0:
+    print(best_match)
     print ("Gave up finding any closer solution after", searching, 'iterations')
 
 logging.close()
