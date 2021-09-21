@@ -83,14 +83,13 @@ options = {0: addition,
 log_results = []
 
 def do_math(test_numbers):
-    del log_results[:]
-    carry = test_numbers.pop()
+    carry = test_numbers.pop(0)
     carry_is_part_result = ''
     if len(test_numbers) == 0:
         # just one number given as input
         log_results.append(str(carry) + ' = ' + str(carry) + '_')
     while len(test_numbers) > 0:
-        results = options[random.randint(0,3)](carry_is_part_result, carry, test_numbers.pop())
+        results = options[random.randint(0,3)](carry_is_part_result, carry, test_numbers.pop(0))
         carry_is_part_result = '_'
         carry = results[0]
         log_results.append(results[1])
@@ -102,12 +101,12 @@ current_result = 0
 best_diff = -1
 searching = 0
 while best_diff != 0 and searching < NUMBER_OF_ITERATIONS:
-    test_numbers = list(numbers)
-    random.shuffle(test_numbers)
-    keep_indexes = random.randint(1,10)
-    while len(test_numbers) > keep_indexes:
-        test_numbers.pop()
+    del log_results[:]
+    input_numbers = list(numbers)
+    random.shuffle(input_numbers)
+    test_numbers = input_numbers[0:random.randint(1,20)]
     current_result = do_math(test_numbers)
+
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
