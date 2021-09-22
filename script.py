@@ -107,9 +107,11 @@ best_diff = -1
 searching = 0
 best_match = ''
 still_searching = 20
+total_calculations = 0
 match_length = 1000
 while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
     del log_results[:]
+    total_calculations += 1
     input_numbers = list(numbers)
     random.shuffle(input_numbers)
     start_index = 0
@@ -152,6 +154,8 @@ while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
 
 if searching > 0:
     print(best_match)
-    print ("Gave up finding any closer solution after", searching, 'iterations')
+    print ("Gave up finding any closer solution after", total_calculations, 'calculation')
+else:
+    print (total_calculations, 'calculations')
 
 logging.close()
