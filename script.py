@@ -103,7 +103,7 @@ def do_math(test_numbers):
     return carry
 
 current_result = 0
-best_diff = -1
+best_diff = wanted_result
 searching = 0
 best_match = ''
 still_searching = 20
@@ -134,7 +134,7 @@ while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
-    if best_diff < 0 or diff < best_diff or diff == 0:
+    if diff < best_diff or diff == 0:
         if best_diff > 0 and diff == 0:
             print("\nList of good results:\n")
         best_diff = diff
