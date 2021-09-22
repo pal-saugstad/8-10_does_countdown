@@ -2,7 +2,8 @@ import random
 import sys
 
 LOGGING='off'
-NUMBER_OF_ITERATIONS=200000
+NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS=200000
+NUMBER_OF_ITERATIONS_HAS_SOLUTION=100000
 
 class Logging:
     def __init__(self, active):
@@ -103,13 +104,14 @@ def do_math(test_numbers):
     return carry
 
 current_result = 0
-best_diff = -1
-searching = 0
+best_diff = wanted_result
+searching = NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS
 best_match = ''
-still_searching = 20
+total_calculations = 0
 match_length = 1000
-while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
+while searching > 0:
     del log_results[:]
+    total_calculations += 1
     input_numbers = list(numbers)
     random.shuffle(input_numbers)
     start_index = 0
@@ -132,26 +134,27 @@ while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
     diff = wanted_result - current_result
     if diff < 0:
         diff = -diff
-    if best_diff < 0 or diff < best_diff or diff == 0:
-        if best_diff > 0 and diff == 0:
-            print("\nList of good results:\n")
+    if diff < best_diff or diff == 0:
         best_diff = diff
         if diff > 0:
-            log_results.append("Diff: " + str(diff))
+            log_results.insert(0, "====> " + str(diff) + " away")
         best_match = ' | '.join(log_results)
-        searching = 0
-        if diff == 0:
-            this_len = len(best_match)
-            if this_len <= match_length:
-                print(best_match)
-                match_length = this_len
+        this_len = len(best_match)
+        if diff > 0:
+            searching = NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS
+        elif this_len < match_length:
+            searching = NUMBER_OF_ITERATIONS_HAS_SOLUTION
+            print(best_match)
             best_match = ''
-            still_searching -= 1
+            match_length = this_len
     else:
-        searching += 1
+        searching -= 1
 
-if searching > 0:
+if best_diff > 0:
     print(best_match)
-    print ("Gave up finding any closer solution after", searching, 'iterations')
+    print ("Gave up finding any closer solution after", total_calculations, 'calculation')
+else:
+    print (total_calculations, 'calculations')
+
 
 logging.close()
