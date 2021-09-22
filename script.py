@@ -104,12 +104,11 @@ def do_math(test_numbers):
 
 current_result = 0
 best_diff = wanted_result
-searching = 0
+searching = NUMBER_OF_ITERATIONS
 best_match = ''
-still_searching = 20
 total_calculations = 0
 match_length = 1000
-while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
+while searching > 0:
     del log_results[:]
     total_calculations += 1
     input_numbers = list(numbers)
@@ -141,18 +140,18 @@ while still_searching > 0 and searching < NUMBER_OF_ITERATIONS:
         if diff > 0:
             log_results.append("Diff: " + str(diff))
         best_match = ' | '.join(log_results)
-        searching = 0
-        if diff == 0:
-            this_len = len(best_match)
-            if this_len <= match_length:
-                print(best_match)
-                match_length = this_len
+        this_len = len(best_match)
+        if diff > 0:
+            searching = NUMBER_OF_ITERATIONS
+        elif this_len < match_length:
+            searching = NUMBER_OF_ITERATIONS
+            print(best_match)
+            match_length = this_len
             best_match = ''
-            still_searching -= 1
     else:
-        searching += 1
+        searching -= 1
 
-if searching > 0:
+if best_diff > 0:
     print(best_match)
     print ("Gave up finding any closer solution after", total_calculations, 'calculation')
 else:
