@@ -135,11 +135,9 @@ while searching > 0:
     if diff < 0:
         diff = -diff
     if diff < best_diff or diff == 0:
-        if best_diff > 0 and diff == 0:
-            print("\nList of good results:\n")
         best_diff = diff
         if diff > 0:
-            log_results.append("Diff: " + str(diff))
+            log_results.insert(0, "====> " + str(diff) + " away")
         best_match = ' | '.join(log_results)
         this_len = len(best_match)
         if diff > 0:
