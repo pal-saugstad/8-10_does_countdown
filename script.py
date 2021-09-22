@@ -2,7 +2,8 @@ import random
 import sys
 
 LOGGING='off'
-NUMBER_OF_ITERATIONS=200000
+NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS=200000
+NUMBER_OF_ITERATIONS_HAS_SOLUTION=100000
 
 class Logging:
     def __init__(self, active):
@@ -104,7 +105,7 @@ def do_math(test_numbers):
 
 current_result = 0
 best_diff = wanted_result
-searching = NUMBER_OF_ITERATIONS
+searching = NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS
 best_match = ''
 total_calculations = 0
 match_length = 1000
@@ -142,9 +143,9 @@ while searching > 0:
         best_match = ' | '.join(log_results)
         this_len = len(best_match)
         if diff > 0:
-            searching = NUMBER_OF_ITERATIONS
+            searching = NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS
         elif this_len < match_length:
-            searching = NUMBER_OF_ITERATIONS
+            searching = NUMBER_OF_ITERATIONS_HAS_SOLUTION
             print(best_match)
             match_length = this_len
             best_match = ''
