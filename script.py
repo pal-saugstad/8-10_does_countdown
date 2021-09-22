@@ -60,7 +60,7 @@ def addition(origin, x, y):
     return x + y , origin + str(x) + " + " + str(y) + " = " + str(x+y) + '_'
 
 def substraction(origin, x, y):
-    if random.randint(0,1) == 0:
+    if y > x:
         return y-x , str(y) + " - " + origin + str(x) + " = " + str(y-x) + '_'
     return x-y , origin + str(x) + " - " + str(y) + " = " + str(x-y) + '_'
 
