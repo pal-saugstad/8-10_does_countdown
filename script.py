@@ -2,7 +2,7 @@ import random
 import sys
 
 LOGGING='off'
-NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS=500000
+NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS=600000
 NUMBER_OF_ITERATIONS_HAS_SOLUTION=100000
 
 class Logging:
@@ -45,6 +45,7 @@ print("\
 \n   n_: intermediate result output and end result\
 \n  _n : intermediate result input\
 \n\
+\n   The line starts with a number which is how many calculations has been done so far\
 \n   P: [4, 1, 2] | 4 + 1 = 5_ | _5 + 2 = 7_\
 \n       meaning: Part using the three input numbers [4, 1, 3] and then this calculation\
 \n   Calc Ps: [52, 11] | 52 * 11 = 572_\
@@ -147,7 +148,7 @@ while searching > 0:
             searching = NUMBER_OF_ITERATIONS_AT_NO_SOLUTIONS
         elif this_len < match_length:
             searching = NUMBER_OF_ITERATIONS_HAS_SOLUTION
-            print(best_match)
+            print("{:8d} | {}".format(total_calculations, best_match))
             match_length = this_len
             best_match = ''
     else:
@@ -157,6 +158,6 @@ if best_diff > 0:
     print(best_match)
     print ("Gave up finding any closer solution after", total_calculations, 'calculation')
 else:
-    print (total_calculations, 'calculations')
+    print("{:8d} | total calculations".format(total_calculations))
 
 logging.close()
