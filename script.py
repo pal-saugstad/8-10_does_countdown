@@ -115,12 +115,15 @@ while searching > 0:
     input_numbers = list(numbers)
     random.shuffle(input_numbers)
     start_index = 0
-    test_numbers = input_numbers[0:random.randint(1,20)]
+    test_numbers = input_numbers[0:random.randint(1,10)]
     no_of_index = len(test_numbers)
     # log_results.append("Using "+str(test_numbers))
     parantesis_result = []
     while start_index < no_of_index:
-        numbers_tot = random.randint(1,no_of_index-start_index)
+        if no_of_index-start_index >= 2:
+            numbers_tot = random.randint(2,no_of_index-start_index)
+        else:
+            numbers_tot = 1
         curr_list = test_numbers[start_index:start_index+numbers_tot]
         log_results.append('P: '+str(curr_list))
         parantesis_result.append(do_math(curr_list))
