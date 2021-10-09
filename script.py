@@ -121,12 +121,7 @@ while searching > 0:
     # log_results.append("Using "+str(test_numbers))
     parantesis_result = []
     while start_index < no_of_index:
-        if no_of_index-start_index >= 2:
-            numbers_tot = random.randint(2,no_of_index-start_index)
-        elif len(parantesis_result) > 1 or len(parantesis_result) == 0:
-            numbers_tot = 1
-        else:
-            break
+        numbers_tot = random.randint(1,no_of_index-start_index)
         curr_list = test_numbers[start_index:start_index+numbers_tot]
         log_results.append('P: '+str(curr_list))
         parantesis_result.append(do_math(curr_list))
