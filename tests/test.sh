@@ -4,17 +4,12 @@ function do_test {
   echo $'\n'"$2 (result should be $3 away). Trying same input again if more that $3 away"$'\n'
   while read -r line ; do
     while : ; do
-      failed=''
       python3 ../script.py $line >/tmp/res
       show=$(tail -2 /tmp/res | head -1)
-      if [ $3 -eq 0 ] ; then
-        [ "$(echo "$show" | grep 'away')" ] && failed=' FAILED '
-      else
-        want=$(echo $show | grep " $3 away")
-        [ "$want" ] || failed=' FAILED '
-      fi
+      [ $3 -eq 0 ] && want=$(echo "$show" | grep -v 'away') ||  want=$(echo "$show" | grep " $3 away")
+      [ "$want" ] && failed='' || failed=' FAILED '
       printf "%-25s|%s%s\n" "$line" "$failed" "$show"
-      [ "$failed" ] || break
+      [ "$want" ] && break
     done
   done < $1
 }
